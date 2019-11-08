@@ -1,0 +1,14 @@
+Executable : G:\Perfessionalsoftware\Android\sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+-HE:\androidworksapce\mobileRaw\casmLogger\app
+-BE:\androidworksapce\mobileRaw\casmLogger\app\.externalNativeBuild\cmake\release\armeabi-v7a
+-DANDROID_ABI=armeabi-v7a
+-DANDROID_PLATFORM=android-24
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\androidworksapce\mobileRaw\casmLogger\app\build\intermediates\cmake\release\obj\armeabi-v7a
+-DCMAKE_BUILD_TYPE=Release
+-DANDROID_NDK=G:\Perfessionalsoftware\Android\sdk\ndk-bundle
+-DCMAKE_TOOLCHAIN_FILE=G:\Perfessionalsoftware\Android\sdk\ndk-bundle\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=G:\Perfessionalsoftware\Android\sdk\cmake\3.6.4111459\bin\ninja.exe
+-GAndroid Gradle - Ninja
+jvmArgs : 
+

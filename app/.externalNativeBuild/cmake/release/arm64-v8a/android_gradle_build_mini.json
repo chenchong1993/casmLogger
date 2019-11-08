@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "G:\\Perfessionalsoftware\\Android\\sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "rtd-Release-arm64-v8a": {
+      "artifactName": "rtd",
+      "buildCommand": "G:\\Perfessionalsoftware\\Android\\sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a --target rtd",
+      "abi": "arm64-v8a",
+      "output": "E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\librtd.so"
+    }
+  }
+}

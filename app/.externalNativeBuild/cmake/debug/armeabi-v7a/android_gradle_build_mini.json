@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "G:\\Perfessionalsoftware\\Android\\sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a --target clean"
+  ],
+  "libraries": {
+    "rtd-Debug-armeabi-v7a": {
+      "artifactName": "rtd",
+      "buildCommand": "G:\\Perfessionalsoftware\\Android\\sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a --target rtd",
+      "abi": "armeabi-v7a",
+      "output": "E:\\androidworksapce\\mobileRaw\\casmLogger\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\librtd.so"
+    }
+  }
+}
