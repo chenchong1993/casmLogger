@@ -813,6 +813,7 @@ public class UiLogger implements GnssListener {
                                     CURRENT_SMOOTHER_RATE[index] = CURRENT_SMOOTHER_RATE[index] - SMOOTHER_RATE;
                                     if (CURRENT_SMOOTHER_RATE[index] <= SMOOTHER_RATE) {
                                         CURRENT_SMOOTHER_RATE[index] = SMOOTHER_RATE;
+                                        //////////////////////
                                     }
                                 }
                             }
