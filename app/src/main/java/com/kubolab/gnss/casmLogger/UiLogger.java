@@ -800,24 +800,15 @@ public class UiLogger implements GnssListener {
                             if (measurement.getConstellationType() == GnssStatus.CONSTELLATION_GALILEO) {
                                 index = index + 235;
                             }
-//                            if (!SettingsFragment.usePseudorangeRate && measurement.getAccumulatedDeltaRangeState() != GnssMeasurement.ADR_STATE_VALID) {
-//                                CURRENT_SMOOTHER_RATE[index] = 1.0;
-//                            }
                             if (SettingsFragment.usePseudorangeSmoother && prm != 0.0) {
                                 if (index < 300) {
                                     if (SettingsFragment.usePseudorangeRate) {
                                         LAST_SMOOTHED_PSEUDORANGE[index] = CURRENT_SMOOTHER_RATE[index] * prm + (1 - CURRENT_SMOOTHER_RATE[index]) * (LAST_SMOOTHED_PSEUDORANGE[index] + measurement.getPseudorangeRateMetersPerSecond());
                                         array[arrayRow][1] = String.format("%14.3f[FIX_PR]", LAST_SMOOTHED_PSEUDORANGE[index], " ", " ");
                                     } else {
-                                        //if (measurement.getAccumulatedDeltaRangeState() == GnssMeasurement.ADR_STATE_VALID) {
                                             LAST_SMOOTHED_PSEUDORANGE[index] = CURRENT_SMOOTHER_RATE[index] * prm + (1 - CURRENT_SMOOTHER_RATE[index]) * (LAST_SMOOTHED_PSEUDORANGE[index] + measurement.getAccumulatedDeltaRangeMeters() - LAST_DELTARANGE[index]);
                                             LAST_DELTARANGE[index] = measurement.getAccumulatedDeltaRangeMeters();
-//                                            CURRENT_SMOOTHER_RATE[index] = CURRENT_SMOOTHER_RATE[index] - SMOOTHER_RATE;
-//                                            if (CURRENT_SMOOTHER_RATE[index] <= 0) {
-//                                                CURRENT_SMOOTHER_RATE[index] = SMOOTHER_RATE;
-//                                            }
                                             array[arrayRow][1] = String.format("%14.3f[FIX_CF]", LAST_SMOOTHED_PSEUDORANGE[index], " ", " ");
-                                        //}
                                     }
                                     CURRENT_SMOOTHER_RATE[index] = CURRENT_SMOOTHER_RATE[index] - SMOOTHER_RATE;
                                     if (CURRENT_SMOOTHER_RATE[index] <= SMOOTHER_RATE) {
