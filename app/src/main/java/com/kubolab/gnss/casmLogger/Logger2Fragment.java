@@ -552,6 +552,14 @@ public class Logger2Fragment extends Fragment {
                 try {
                     type = 0;
                     type = resultFromJNI(result, ep, gpst, velocity, clk, satnum, dop);
+                    String buff = "G019,TW2078,TS475191,DX8.653,DY-14.404,DZ5.378\r\n";
+                    String[] bufflist = buff.split(",");
+                    int GridID = Integer.parseInt(bufflist[0].substring(1));
+                    int TW = Integer.parseInt(bufflist[1].substring(2));
+                    int TS = Integer.parseInt(bufflist[2].substring(2));
+                    double DX = Double.parseDouble(bufflist[3].substring(2));
+                    double DY = Double.parseDouble(bufflist[4].substring(2));
+                    double DZ = Double.parseDouble(bufflist[5].substring(2));
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

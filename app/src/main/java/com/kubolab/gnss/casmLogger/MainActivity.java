@@ -1,6 +1,7 @@
 package com.kubolab.gnss.casmLogger;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,6 +9,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -19,11 +22,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+
+import static com.kubolab.gnss.casmLogger.DateUtil.getDate2String;
 
 
 /** The activity for the application. */
@@ -308,32 +314,32 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //if(StaticGnssData.flag==1)
                     //{
-//                        String serviceString = Context.LOCATION_SERVICE;// 获取的是位置服务
-//                        LocationManager locationManager = (LocationManager) getSystemService(serviceString);// 调用getSystemService()方法来获取LocationManager对象
-//                        String provider = LocationManager.GPS_PROVIDER;// 指定LocationManager的定位方法
-//                        @SuppressLint("MissingPermission")
-//                        Location location = locationManager != null ? locationManager.getLastKnownLocation(provider) : null;// 调用getLastKnownLocation()方法获取当前的位置信息
-//                        if (Build.VERSION.SDK_INT >= VERSION_CODES.M) {
-//                            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                                // TODO: Consider calling
-//                                //    Activity#requestPermissions
-//                                // here to request the missing permissions, and then overriding
-//                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                //                                          int[] grantResults)
-//                                // to handle the case where the user grants the permission. See the documentation
-//                                // for Activity#requestPermissions for more details.
-//                                return;
-//                            }
-//                        }
-//                        //  locationManager.requestLocationUpdates(provider, 1000, 10, locationListener);// 产生位置改变事件的条件设定为距离改变10米，时间间隔为1秒，设定监听位置变化
-//                        if(location != null) {
-//                            StaticGnssData.lat = location.getLatitude();//获取纬度
-//                            StaticGnssData.lng = location.getLongitude();//获取经度
-//                            StaticGnssData.alt = location.getAltitude();//获取大地高wgs84
-//                            StaticGnssData.epho = getDate2String(location.getTime(), "yyyy MM dd HH mm ss");
-//                            Log.i("test:经纬度", " 经度: " + StaticGnssData.lng + " 纬度:" + StaticGnssData.lat + " 大地高:" + StaticGnssData.alt);
-//                            passingobsLBSdataJNI(StaticGnssData.lat, StaticGnssData.lng, StaticGnssData.alt, StaticGnssData.epho);
-//                        }
+                        String serviceString = Context.LOCATION_SERVICE;// 获取的是位置服务
+                        LocationManager locationManager = (LocationManager) getSystemService(serviceString);// 调用getSystemService()方法来获取LocationManager对象
+                        String provider = LocationManager.GPS_PROVIDER;// 指定LocationManager的定位方法
+                        @SuppressLint("MissingPermission")
+                        Location location = locationManager != null ? locationManager.getLastKnownLocation(provider) : null;// 调用getLastKnownLocation()方法获取当前的位置信息
+                        if (Build.VERSION.SDK_INT >= VERSION_CODES.M) {
+                            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    Activity#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for Activity#requestPermissions for more details.
+                                return;
+                            }
+                        }
+                        //  locationManager.requestLocationUpdates(provider, 1000, 10, locationListener);// 产生位置改变事件的条件设定为距离改变10米，时间间隔为1秒，设定监听位置变化
+                        if(location != null) {
+                            StaticGnssData.lat = location.getLatitude();//获取纬度
+                            StaticGnssData.lng = location.getLongitude();//获取经度
+                            StaticGnssData.alt = location.getAltitude();//获取大地高wgs84
+                            StaticGnssData.epho = getDate2String(location.getTime(), "yyyy MM dd HH mm ss");
+                            Log.i("test:经纬度", " 经度: " + StaticGnssData.lng + " 纬度:" + StaticGnssData.lat + " 大地高:" + StaticGnssData.alt);
+                            passingobsLBSdataJNI(StaticGnssData.lat, StaticGnssData.lng, StaticGnssData.alt, StaticGnssData.epho);
+                        }
 
                             StaticGnssData.syns = passingobsDataJNI(
                                     StaticGnssData.GPSTweek,StaticGnssData.GPSTsecond,

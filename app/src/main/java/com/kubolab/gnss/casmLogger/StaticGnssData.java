@@ -69,6 +69,10 @@ public class StaticGnssData {
     public static int glosvnum;
     public static int galsvnum;
 
+    public static double lat;
+    public static double lng;
+    public static double alt;
+    public static String epho;
 
     public static int syns;
 
@@ -81,7 +85,10 @@ public class StaticGnssData {
         flag = 0;
         gpssvnum=0; bdssvnum=0;
         glosvnum=0;galsvnum=0;
-
+        lat=0;
+        lng=0;
+        alt=0;
+        epho="";
         for (int i = 0;i<32;i++)
         {
             GPSTweek[i] = 0;

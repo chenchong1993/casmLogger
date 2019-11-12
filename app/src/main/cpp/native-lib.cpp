@@ -90,7 +90,7 @@ Java_com_kubolab_gnss_casmLogger_Logger2Fragment_resultFromJNI(JNIEnv *env, jobj
                                                              jdoubleArray velocity_,
                                                              jdoubleArray clk_,
                                                              jintArray satprn_,
-                                                             jdoubleArray dop_   ) {
+                                                             jdoubleArray dop_) {
     jdouble *result = env->GetDoubleArrayElements(result_, NULL);
     jdouble *ep = env->GetDoubleArrayElements(ep_, NULL);
     jdouble *gpst = env->GetDoubleArrayElements(gpst_, NULL);
