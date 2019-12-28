@@ -1,0 +1,151 @@
+[1/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/binex.c.o
+[2/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/cmr.c.o
+[3/50] Building CXX object CMakeFiles/rtd.dir/src/main/cpp/native-lib.cpp.o
+[4/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/convgpx.c.o
+[5/50] Building CXX object CMakeFiles/rtd.dir/src/main/cpp/rtdlib.cpp.o
+[6/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/convkml.c.o
+[7/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/download.c.o
+[8/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/datum.c.o
+[9/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/geoid.c.o
+[10/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/convrnx.c.o
+[11/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/gis.c.o
+[12/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/gw10.c.o
+[13/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ionex.c.o
+[14/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/crescent.c.o
+[15/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ephemeris.c.o
+[16/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/options.c.o
+[17/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ppp_corr.c.o
+[18/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/preceph.c.o
+[19/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/pntpos.c.o
+[20/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/javad.c.o
+[21/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ppp.c.o
+[22/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/nvs.c.o
+[23/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/lambda.c.o
+[24/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/novatel.c.o
+[25/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ppp_ar.c.o
+[26/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/postpos.c.o
+[27/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/qzslex.c.o
+[28/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rcvraw.c.o
+[29/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtcm3e.c.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\pntpos.c:272:125: warning: format specifies type 'double' but the argument has type 'double *' [-Wformat]
+                dtrp, P - obs[i].P[0], gettgd(obs[i].sat, nav), rs[0 + i * 6], rs[1 + i * 6], rs[2 + i * 6], azel[1 + i * 3] * R2D,resp);
+                                                                                                                                   ^~~~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\pntpos.c:395:41: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+                if (satsys(obs[ii].sat, sysprn) == SYS_GPS) {
+                                        ^~~~~~
+                                        &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\pntpos.c:398:41: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+                if (satsys(obs[ii].sat, sysprn) == SYS_GLO) {
+                                        ^~~~~~
+                                        &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\pntpos.c:401:41: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+                if (satsys(obs[ii].sat, sysprn) == SYS_CMP) {
+                                        ^~~~~~
+                                        &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+4 warnings generated.
+[30/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rinex.c.o
+[31/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rt17.c.o
+[32/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtkcmn.c.o
+[33/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rcvlex.c.o
+[34/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtcm3.c.o
+[35/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtcm.c.o
+[36/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtcm2.c.o
+[37/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtksvr.c.o
+[38/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/streamsvr.c.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\native-lib.cpp:406:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+1 warning generated.
+[39/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/sbas.c.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:309:59: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+    cmdsPeriodic[0] = cmdsPeriodic[1] = cmdsPeriodic[2] = "";
+                                                          ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:170:29: warning: 'memset' call operates on objects of type 'char [3]' while the size is based on a different type 'char (*)[3]' [-Wsizeof-pointer-memaccess]
+    memset(&cmd,0x00,sizeof(&cmd));
+           ~~~~             ^~~~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:170:29: note: did you mean to remove the addressof in the argument to 'sizeof' (and multiply it by the number of elements)?
+    memset(&cmd,0x00,sizeof(&cmd));
+                            ^~~~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:171:32: warning: 'memset' call operates on objects of type 'char [3]' while the size is based on a different type 'char (*)[3]' [-Wsizeof-pointer-memaccess]
+    memset(&rcvopt,0x00,sizeof(&rcvopt));
+           ~~~~~~~             ^~~~~~~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:171:32: note: did you mean to remove the addressof in the argument to 'sizeof' (and multiply it by the number of elements)?
+    memset(&rcvopt,0x00,sizeof(&rcvopt));
+                               ^~~~~~~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:231:5: warning: array index 3 is past the end of the array (which contains 3 elements) [-Warray-bounds]
+    rtksvr.format[3] = formats[3];
+    ^             ~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1328:5: note: array 'format' declared here
+    int format[3];      /* input format {rov,base,corr} */
+    ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:232:5: warning: array index 4 is past the end of the array (which contains 3 elements) [-Warray-bounds]
+    rtksvr.format[4] = formats[4];
+    ^             ~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1328:5: note: array 'format' declared here
+    int format[3];      /* input format {rov,base,corr} */
+    ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:233:5: warning: array index 5 is past the end of the array (which contains 3 elements) [-Warray-bounds]
+    rtksvr.format[5] = formats[5];
+    ^             ~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1328:5: note: array 'format' declared here
+    int format[3];      /* input format {rov,base,corr} */
+    ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:234:5: warning: array index 6 is past the end of the array (which contains 3 elements) [-Warray-bounds]
+    rtksvr.format[6] = formats[6];
+    ^             ~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1328:5: note: array 'format' declared here
+    int format[3];      /* input format {rov,base,corr} */
+    ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtdlib.cpp:235:5: warning: array index 7 is past the end of the array (which contains 3 elements) [-Warray-bounds]
+    rtksvr.format[7] = formats[7];
+    ^             ~
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1328:5: note: array 'format' declared here
+    int format[3];      /* input format {rov,base,corr} */
+    ^
+8 warnings generated.
+[40/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/tersus.c.o
+[41/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/tides.c.o
+[42/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/rtkpos.c.o
+[43/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ss2.c.o
+[44/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/septentrio.c.o
+[45/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/solution.c.o
+[46/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/skytraq.c.o
+[47/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/stream.c.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtksvr.c:1221:1: warning: control may reach end of non-void function [-Wreturn-type]
+}
+^
+1 warning generated.
+[48/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/tle.c.o
+[49/50] Building C object CMakeFiles/rtd.dir/src/main/cpp/ublox.c.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtkpos.c:1623:32: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+        if (satsys(obs[i].sat, sysprn) == SYS_GPS) {
+                               ^~~~~~
+                               &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtkpos.c:1626:32: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+        if (satsys(obs[i].sat, sysprn) == SYS_GLO) {
+                               ^~~~~~
+                               &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\rtkpos.c:1629:32: warning: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *'; take the address with & [-Wint-conversion]
+        if (satsys(obs[i].sat, sysprn) == SYS_CMP) {
+                               ^~~~~~
+                               &
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp/rtklib.h:1421:36: note: passing argument to parameter 'prn' here
+EXPORT int  satsys  (int sat, int *prn);
+                                   ^
+3 warnings generated.
+[50/50] Linking CXX shared library ..\..\..\..\build\intermediates\cmake\debug\obj\x86\librtd.so

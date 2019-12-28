@@ -104,21 +104,16 @@ int rtdrun(string ip_t[8],string type_t[8],string resultfilename_t)
     memset(&CmdsTcp,0x00,sizeof(CmdsTcp));
     memset(strs,0x00,sizeof(strs));
 
+    //观测值
     strs[0] = 4;//atoi(type[0].c_str());
-    Paths[0][1] = ":@121.28.103.199:10011/:";//ip[0];
-    //Paths[0][1] = ":@192.168.200.1:9901/:";
-    //Paths[0][1] = ":@10.26.0.100:39151/:";
-    //strs[1] = atoi(type[1].c_str());
-    strs[1]=4;
-   // Paths[1][1] = ip[1];
-    Paths[1][1] = ":@121.28.103.201:21011/:";
-    //Paths[1][1] = ":@192.168.200.1:9901/:";
-    //Paths[1][1] = ":@10.26.0.100:39151/:";
-//    strs[2] = atoi(type[2].c_str());
-    strs[2]=4;
-//    Paths[2][1] = ip[2];
-    Paths[2][1] = ":@121.28.103.199:10011/:";
-   // Paths[2][1] = ":@192.189.3.22:26001/:";
+    Paths[0][1] = ":@121.28.103.199:10000/:";//ip[0];
+    //差分数据
+    strs[1]=atoi(type[1].c_str());
+    Paths[1][1] = ip[1];
+    //星历
+    strs[2]=atoi(type[2].c_str());
+    Paths[2][1] =  ip[2];
+
 
     strs[3] = STR_FILE;
     Paths[3][2] = ResultFileName;

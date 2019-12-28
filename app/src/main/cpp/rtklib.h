@@ -1992,6 +1992,7 @@ typedef struct { ;
     int galSvNum;
 }obsdata_t ;
 extern obsdata_t ObsData;
+extern const char* gridIpPort;
 #ifdef __cplusplus
 }
 #endif

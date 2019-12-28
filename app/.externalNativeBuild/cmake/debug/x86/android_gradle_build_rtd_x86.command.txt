@@ -1,0 +1,8 @@
+Executable : G:\Perfessionalsoftware\Android\sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+--build
+E:\androidworksapce\mobileRaw\casmLogger\app\.externalNativeBuild\cmake\debug\x86
+--target
+rtd
+jvmArgs : 
+

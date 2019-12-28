@@ -258,7 +258,6 @@ static int rescode(int iter, const obsd_t *obs, int n, const double *rs,
         else mask[0]=1;
         
         vsat[i]=1; resp[i]=v[nv]; (*ns)++;
-        
         /* error variance */
         var[nv++]=varerr(opt,azel[1+i*2],sys)+vare[i]+vmeas+vion+vtrp;
         

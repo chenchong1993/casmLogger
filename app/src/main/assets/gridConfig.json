@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "gridID": "irrgrid1",
+    "gridType": "irrgrid",
+    "gridDesc": "不规则格网1",
+    "startLat": "25",
+    "startLng": "109",
+    "latInterval": "-1.5",
+    "lngInterval": "2",
+    "gridIP": "121.28.103.199",
+    "gridPort": "20001"
+  },
+  {
+    "id": 2,
+    "gridID": "grid2",
+    "gridType": "grid",
+    "gridDesc": "格网2",
+    "startLat": "26",
+    "startLng": "110",
+    "latInterval": "1",
+    "lngInterval": "1",
+    "gridIP": "121.28.103.199",
+    "gridPort": "10002"
+  },
+  {
+    "id": 3,
+    "gridID": "grid1",
+    "gridType": "grid",
+    "gridDesc": "格网1",
+    "startLat": "25",
+    "startLng": "109",
+    "latInterval": "1",
+    "lngInterval": "1",
+    "gridIP": "121.28.103.199",
+    "gridPort": "10001"
+  },
+  {
+    "id": 4,
+    "gridID": "irrgrid2",
+    "gridType": "irrgrid",
+    "gridDesc": "不规则格网2",
+    "startLat": "23.5",
+    "startLng": "111",
+    "latInterval": "-0.5",
+    "lngInterval": "1",
+    "gridIP": "121.28.103.199",
+    "gridPort": "20002"
+  },
+  {
+    "id": 5,
+    "gridID": "grid3",
+    "gridType": "grid",
+    "gridDesc": "北京格网",
+    "startLat": "39",
+    "startLng": "115",
+    "latInterval": "1",
+    "lngInterval": "1",
+    "gridIP": "121.28.103.199",
+    "gridPort": "10004"
+  }
+]

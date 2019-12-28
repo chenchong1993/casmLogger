@@ -25,11 +25,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-
-import static com.kubolab.gnss.casmLogger.DateUtil.getDate2String;
 
 
 /** The activity for the application. */
@@ -52,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     private GnssNavigationDataBase mGnssNavigationDataBase;
     private SensorContainer mSensorContainer;
     private static MainActivity instance = null;
+
+    String[] ip = new String[8];
+    String[] inType = new String[8];
+    String ResultFileName = new String();
+    private final String urlSendPosition = "http://121.28.103.199:5603/api/apiGetGridSendInfo";
+    private static Context context;
+    String gridType = "grid";
+    String config = new String();
+    String gridIP = new String();
+   // static GridInfo[] gridInfo = new GridInfo[100];
 
     public boolean GNSSRegister = false;
 
@@ -76,13 +91,10 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
 
         //---------------------------cc-------------------------------------------
-        String[] ip = new String[8];
-        String[] inType = new String[8];
-        String ResultFileName = new String();
-        ip[1] = "Example:Configs@products.igs-ip.net:2101/RTCM3EPH:";//星历
-        inType[1] = "7";
-        ip[2] = ":@106.53.66.239:21002";//改正数
-        inType[2] = "4";
+        ip[1] = ":@211.101.24.55:20030/:";
+        inType[1] = "4"; //差分数据
+        ip[2] = "Example:Configs@products.igs-ip.net:2101/RTCM3EPH:";//星历
+        inType[2] = "7";
         Calendar calendar = Calendar.getInstance();
         String divide = "-";
         ResultFileName = String.valueOf("/sdcard/Alaas/")
@@ -95,12 +107,166 @@ public class MainActivity extends AppCompatActivity {
                 + String.valueOf(df3.format(calendar.get(Calendar.SECOND)))
                 + String.valueOf(".txt");
 
+        context = getApplicationContext();
+
+        config = getConfig();
+
+        GridInfo gridInfo[] = getGridInfoFromJson(config);
+        String a = gridInfo[1].getGridDesc();
+        initListener();
+        getGPSLocationContinuously(gridInfo);
 
         ObsDataThread obsdataThread = new ObsDataThread();
         obsdataThread.start();
 
+
         StaticVariable.Status = passingPathJNI(ip, inType, ResultFileName);     //调用C接口（传路径进去）
         //----------------------------------------------------------------------
+    }
+
+    private void initListener() {
+        //gsp_btn.setOnClickListener(this);
+    }
+    /**
+     * 通过GPS获取定位信息
+     */
+    @SuppressLint("MissingPermission")
+    //@RequiresApi(api = Build.VERSION_CODES.M)
+    public void getGPSLocationContinuously (final GridInfo[] gridInfos) {
+//        sendLocation2Cloud("23.33","111.33",gridType);
+
+//        设置定位监听，因为GPS定位，第一次进来可能获取不到，通过设置监听，可以在有效的时间范围内获取定位信息
+        LocationUtils.addLocationListener(context, LocationManager.GPS_PROVIDER, new LocationUtils.ILocationListener() {
+            @Override
+            public void onSuccessLocation(Location location) {
+                if (location != null) {
+                    String lat = String.valueOf(location.getLatitude()).substring(0,7);
+                    String lon = String.valueOf(location.getLongitude()).substring(0,7);
+                    gridIP = getGrid(lat,lon,gridType,gridInfos);
+                    passingGridIPJNI(gridIP);
+                    //sendLocation2Cloud(lat,lon,gridType);
+//                    StaticVariable.Status = passingPathJNI(ip, inType, ResultFileName);
+                } else {
+                    Toast.makeText(MainActivity.this, "未获取到位置...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * 上传至云端,不用这个了
+     */
+    public void sendLocation2Cloud(String latitude, String longtitude, String gridType){
+        if (latitude == null || longtitude == null)return;
+        StringBuilder strLoc = new StringBuilder();
+        strLoc.append("?userLat=").append(latitude)
+                .append("&userLng=").append(longtitude)
+                .append("&userGridType=").append(gridType);
+        final String content = String.valueOf(strLoc);
+        HttpUtil.sendToCloud(urlSendPosition, content, new HttpCallbackListener() {
+            @Override
+            public void onFinish(String response) {
+                if (response.equals("not in grid")){
+                    //Toast.makeText(context,"处于危险区域！！！",Toast.LENGTH_LONG).show();
+                    Log.e("未找到格网",response);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context,"未找到格网",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    Log.e("格网：",response);
+                    ip[1] = response;
+                }
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e("HttpError",e.getMessage());
+            }
+        });
+
+    }
+    /**
+     * 判断格网
+     */
+    public String getGrid(String latitude, String longtitude, String gridType,GridInfo[] gridInfo){
+
+        for (int i=0; i<gridInfo.length; i++) {
+//            如果用户获取的时规则格网，则其经纬度是从左下角开始的，使用一下逻辑
+            if (gridType.equals("irrgrid")){
+                if (gridType.equals(gridInfo[i].getGridType()) &&
+                        Double.parseDouble(latitude)<Double.parseDouble(gridInfo[i].getstartLat()) &&
+                        Double.parseDouble(latitude)>(Double.parseDouble(gridInfo[i].getstartLat())+Double.parseDouble(gridInfo[i].getLatInterval())) &&
+                        Double.parseDouble(longtitude)>Double.parseDouble(gridInfo[i].getstartLng()) &&
+                        Double.parseDouble(longtitude)<(Double.parseDouble(gridInfo[i].getstartLng())+Double.parseDouble(gridInfo[i].getLngInterval()))){
+                    return ":@"+gridInfo[i].getGridIP()+":"+gridInfo[i].getGridPort();
+                }
+            }else{
+                String a = gridInfo[i].getGridType();
+                double b = Double.parseDouble(gridInfo[i].getstartLat());
+                double c = Double.parseDouble(gridInfo[i].getstartLng());
+                double d = Double.parseDouble(gridInfo[i].getLatInterval());
+                double e = Double.parseDouble(gridInfo[i].getLngInterval());
+                if (gridType.equals(gridInfo[i].getGridType()) &&
+                        Double.parseDouble(latitude)>Double.parseDouble(gridInfo[i].getstartLat()) &&
+                        Double.parseDouble(latitude)<(Double.parseDouble(gridInfo[i].getstartLat())+Double.parseDouble(gridInfo[i].getLatInterval())) &&
+                        Double.parseDouble(longtitude)>Double.parseDouble(gridInfo[i].getstartLng()) &&
+                        Double.parseDouble(longtitude)<(Double.parseDouble(gridInfo[i].getstartLng())+Double.parseDouble(gridInfo[i].getLngInterval()))){
+                    return ":@"+gridInfo[i].getGridIP()+":"+gridInfo[i].getGridPort();
+                }
+            }
+
+        }
+        return "not in grid";
+
+    }
+
+    /**
+     * 读取配置文件
+     */
+    public String getConfig(){
+        String Result = "";
+        try {
+            InputStreamReader inputReader = new InputStreamReader( getResources().getAssets().open("gridConfig.json") );
+            BufferedReader bufReader = new BufferedReader(inputReader);
+            String line="";
+            while((line = bufReader.readLine()) != null)
+                Result += line;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result;
+    }
+
+    /**
+     * 从JSON对象中转存到GridInfo类中
+     */
+    public GridInfo[]  getGridInfoFromJson(String json){
+
+        JSONArray jsonArray= null;
+        try {
+            jsonArray = new JSONArray(config);
+            int len = jsonArray.length();
+            GridInfo[] gridInfo = new GridInfo[len];
+            for(int i=0;i<len;i++){
+                JSONObject object=jsonArray.getJSONObject(i);
+                gridInfo[i] = new GridInfo();
+                gridInfo[i].setGridID(object.getString("gridID"));
+                gridInfo[i].setGridType(object.getString("gridType"));
+                gridInfo[i].setGridDesc(object.getString("gridDesc"));
+                gridInfo[i].setstartLat(object.getString("startLat"));
+                gridInfo[i].setstartLng(object.getString("startLng"));
+                gridInfo[i].setLatInterval(object.getString("latInterval"));
+                gridInfo[i].setLngInterval(object.getString("lngInterval"));
+                gridInfo[i].setGridPort(object.getString("gridPort"));
+                gridInfo[i].setGridIP(object.getString("gridIP"));
+            }
+            return gridInfo;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -305,6 +471,9 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String passingPathJNI(String[] ip, String[] port, String resultfilename);
+
+
+    public native String passingGridIPJNI(String ip);
     //接收手机观测数据线程
     public class ObsDataThread extends Thread {
         @Override
@@ -312,35 +481,6 @@ public class MainActivity extends AppCompatActivity {
             super.run();
             while(true) {
                 try {
-                    //if(StaticGnssData.flag==1)
-                    //{
-                        String serviceString = Context.LOCATION_SERVICE;// 获取的是位置服务
-                        LocationManager locationManager = (LocationManager) getSystemService(serviceString);// 调用getSystemService()方法来获取LocationManager对象
-                        String provider = LocationManager.GPS_PROVIDER;// 指定LocationManager的定位方法
-                        @SuppressLint("MissingPermission")
-                        Location location = locationManager != null ? locationManager.getLastKnownLocation(provider) : null;// 调用getLastKnownLocation()方法获取当前的位置信息
-                        if (Build.VERSION.SDK_INT >= VERSION_CODES.M) {
-                            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                // TODO: Consider calling
-                                //    Activity#requestPermissions
-                                // here to request the missing permissions, and then overriding
-                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                //                                          int[] grantResults)
-                                // to handle the case where the user grants the permission. See the documentation
-                                // for Activity#requestPermissions for more details.
-                                return;
-                            }
-                        }
-                        //  locationManager.requestLocationUpdates(provider, 1000, 10, locationListener);// 产生位置改变事件的条件设定为距离改变10米，时间间隔为1秒，设定监听位置变化
-                        if(location != null) {
-                            StaticGnssData.lat = location.getLatitude();//获取纬度
-                            StaticGnssData.lng = location.getLongitude();//获取经度
-                            StaticGnssData.alt = location.getAltitude();//获取大地高wgs84
-                            StaticGnssData.epho = getDate2String(location.getTime(), "yyyy MM dd HH mm ss");
-                            Log.i("test:经纬度", " 经度: " + StaticGnssData.lng + " 纬度:" + StaticGnssData.lat + " 大地高:" + StaticGnssData.alt);
-                            passingobsLBSdataJNI(StaticGnssData.lat, StaticGnssData.lng, StaticGnssData.alt, StaticGnssData.epho);
-                        }
-
                             StaticGnssData.syns = passingobsDataJNI(
                                     StaticGnssData.GPSTweek,StaticGnssData.GPSTsecond,
                                     StaticGnssData.BDSTweek,StaticGnssData.BDSTsecond,
@@ -362,7 +502,6 @@ public class MainActivity extends AppCompatActivity {
                                     StaticGnssData.GalC1,StaticGnssData.GalL1,StaticGnssData.GalD1,
                                     StaticGnssData.GalC2,StaticGnssData.GalL2,StaticGnssData.GalD2,
                                     StaticGnssData.GalC3,StaticGnssData.GalL3,StaticGnssData.GalD3);
-                    //}
                     Thread.sleep(500);//改为了500  12.23
                 } catch (InterruptedException e) {
                     e.printStackTrace();

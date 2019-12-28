@@ -404,3 +404,19 @@ Java_com_kubolab_gnss_casmLogger_MainActivity_passingobsLBSdataJNI(JNIEnv *env, 
 
     env->ReleaseStringUTFChars(epho_, epho);
 }
+
+extern const char* gridIpPort;
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_kubolab_gnss_casmLogger_MainActivity_passingGridIPJNI(JNIEnv *env, jobject instance,
+                                                               jstring ip_) {
+    const char *ip = env->GetStringUTFChars(ip_, 0);
+
+    // TODO
+    //strcpy(gridIpPort,ip);
+//    gridIpPort = &ip;
+    int a = 0;
+    env->ReleaseStringUTFChars(ip_, ip);
+
+    //return env->NewStringUTF(returnValue);
+}

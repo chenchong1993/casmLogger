@@ -1,1 +1,10 @@
-ninja: no work to do.
+Recompacting log...
+[1/2] Building CXX object CMakeFiles/rtd.dir/src/main/cpp/native-lib.cpp.o
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\native-lib.cpp:406:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+E:\androidworksapce\mobileRaw\casmLogger\app\src\main\cpp\native-lib.cpp:422:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+2 warnings generated.
+[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cmake\debug\obj\arm64-v8a\librtd.so
